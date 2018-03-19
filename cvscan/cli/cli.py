@@ -8,6 +8,7 @@ Cvscan command line tool
 import click
 import pprint
 
+import json
 from cvscan import Cvscan
 from cvscan import data_operations as do
 
@@ -35,7 +36,7 @@ def parse(name):
   """
   resume = Cvscan(name)
   resume.parse()
-  pprint.pprint(resume.show(), width=1)
+  pprint.pprint(json.loads(resume.show()), indent=4, width=1)
 
 
 @main.command()
@@ -129,3 +130,6 @@ def remove(org,skill,job,qual,extra):
     do.remove_qualifications(qual.split(','))
   if extra:
     do.remove_extra(extra.split(','))
+
+if __name__ == "__main__":
+    main()
